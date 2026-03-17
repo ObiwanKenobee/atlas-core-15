@@ -2,6 +2,7 @@ import { useLocation, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   LayoutDashboard, ShieldAlert, HeartPulse, Lightbulb, FlaskConical,
+  GitBranch, Network, Briefcase,
   ChevronLeft, ChevronRight,
 } from "lucide-react";
 import { useState } from "react";
@@ -9,9 +10,12 @@ import { useState } from "react";
 const navItems = [
   { path: "/", label: "Overview", icon: LayoutDashboard },
   { path: "/risk", label: "Risk", icon: ShieldAlert },
+  { path: "/talent-flow", label: "Talent Flow", icon: GitBranch },
   { path: "/health", label: "Health", icon: HeartPulse },
-  { path: "/recommendations", label: "Recommendations", icon: Lightbulb },
+  { path: "/structure", label: "Structure", icon: Network },
   { path: "/simulation", label: "Simulation Lab", icon: FlaskConical },
+  { path: "/recommendations", label: "Recommendations", icon: Lightbulb },
+  { path: "/cases", label: "Cases", icon: Briefcase },
 ];
 
 export function AtlasSidebar() {
