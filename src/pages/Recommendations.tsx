@@ -2,15 +2,29 @@ import { motion } from "framer-motion";
 import { recommendations } from "@/data/mock-data";
 import { RecommendationCard } from "@/components/atlas/RecommendationCard";
 import { Lightbulb } from "lucide-react";
+import { useRole } from "@/hooks/useRole";
 
 export default function RecommendationsPage() {
+  const { role } = useRole();
+
+  // Scope recommendations by role
+  const scopedRecs = role === "executive"
+    ? recommendations.filter(r => r.urgency === "critical" || r.urgency === "high")
+    : role === "operator"
+    ? recommendations.filter(r => r.urgency !== "low")
+    : recommendations;
+
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }} className="space-y-6">
       <div className="flex items-center gap-3">
         <Lightbulb className="w-5 h-5 text-muted-foreground" />
         <div>
           <h1 className="text-lg font-display font-medium">Intervention Recommendations</h1>
-          <p className="text-xs text-muted-foreground">AI-generated guidance with ethical tradeoff analysis — every recommendation is explorable</p>
+          <p className="text-xs text-muted-foreground">
+            {role === "executive" ? "High-priority recommendations requiring executive attention" :
+             role === "operator" ? "Operational recommendations for your teams" :
+             "AI-generated guidance with ethical tradeoff analysis"}
+          </p>
         </div>
       </div>
 
@@ -22,7 +36,7 @@ export default function RecommendationsPage() {
       </div>
 
       <div className="space-y-4">
-        {recommendations.map((rec, i) => (
+        {scopedRecs.map((rec, i) => (
           <RecommendationCard key={rec.id} rec={rec} index={i} />
         ))}
       </div>
