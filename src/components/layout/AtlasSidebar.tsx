@@ -2,16 +2,18 @@ import { useLocation, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   LayoutDashboard, ShieldAlert, HeartPulse, Lightbulb, FlaskConical,
-  GitBranch, Network, Briefcase,
-  ChevronLeft, ChevronRight,
+  GitBranch, Network, Briefcase, DollarSign,
+  ChevronLeft, ChevronRight, LogOut,
 } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const navItems = [
   { path: "/", label: "Overview", icon: LayoutDashboard },
   { path: "/risk", label: "Risk", icon: ShieldAlert },
   { path: "/talent-flow", label: "Talent Flow", icon: GitBranch },
   { path: "/health", label: "Health", icon: HeartPulse },
+  { path: "/economics", label: "Economics", icon: DollarSign },
   { path: "/structure", label: "Structure", icon: Network },
   { path: "/simulation", label: "Simulation Lab", icon: FlaskConical },
   { path: "/recommendations", label: "Recommendations", icon: Lightbulb },
@@ -21,6 +23,7 @@ const navItems = [
 export function AtlasSidebar() {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
+  const { signOut, user } = useAuth();
 
   return (
     <motion.aside
@@ -66,8 +69,20 @@ export function AtlasSidebar() {
         })}
       </nav>
 
-      {/* Collapse toggle */}
-      <div className="p-2 border-t border-white/[0.06]">
+      {/* User & Collapse */}
+      <div className="p-2 border-t border-white/[0.06] space-y-1">
+        {!collapsed && user && (
+          <div className="px-3 py-1.5 text-[10px] text-muted-foreground font-display truncate">
+            {user.email}
+          </div>
+        )}
+        <button
+          onClick={signOut}
+          className="w-full flex items-center gap-3 px-3 py-2 text-muted-foreground hover:text-foreground atlas-transition-fast rounded-md hover:bg-accent/50 text-xs font-display"
+        >
+          <LogOut className="w-4 h-4 flex-shrink-0" />
+          {!collapsed && <span>Sign Out</span>}
+        </button>
         <button
           onClick={() => setCollapsed(!collapsed)}
           className="w-full flex items-center justify-center py-2 text-muted-foreground hover:text-foreground atlas-transition-fast rounded-md hover:bg-accent/50"
