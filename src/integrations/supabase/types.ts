@@ -14,7 +14,185 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      case_decisions: {
+        Row: {
+          action: string
+          case_id: string
+          decided_at: string | null
+          decision_owner: string
+          id: string
+          rationale: string
+          user_id: string
+        }
+        Insert: {
+          action: string
+          case_id: string
+          decided_at?: string | null
+          decision_owner?: string
+          id?: string
+          rationale?: string
+          user_id: string
+        }
+        Update: {
+          action?: string
+          case_id?: string
+          decided_at?: string | null
+          decision_owner?: string
+          id?: string
+          rationale?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_decisions_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cases: {
+        Row: {
+          affected_entities: string[] | null
+          case_number: string
+          created_at: string | null
+          evidence_count: number | null
+          id: string
+          outcome: string | null
+          owner: string
+          priority: string
+          simulations_run: number | null
+          status: string
+          summary: string
+          title: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          affected_entities?: string[] | null
+          case_number?: string
+          created_at?: string | null
+          evidence_count?: number | null
+          id?: string
+          outcome?: string | null
+          owner?: string
+          priority?: string
+          simulations_run?: number | null
+          status?: string
+          summary?: string
+          title: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          affected_entities?: string[] | null
+          case_number?: string
+          created_at?: string | null
+          evidence_count?: number | null
+          id?: string
+          outcome?: string | null
+          owner?: string
+          priority?: string
+          simulations_run?: number | null
+          status?: string
+          summary?: string
+          title?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string | null
+          display_name: string | null
+          id: string
+          role: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string | null
+          display_name?: string | null
+          id: string
+          role?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string | null
+          display_name?: string | null
+          id?: string
+          role?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      saved_recommendations: {
+        Row: {
+          created_at: string | null
+          id: string
+          notes: string | null
+          recommendation_id: string
+          status: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          notes?: string | null
+          recommendation_id: string
+          status?: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          notes?: string | null
+          recommendation_id?: string
+          status?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      simulation_scenarios: {
+        Row: {
+          confidence_bands: Json
+          created_at: string | null
+          id: string
+          name: string
+          outputs: Json
+          updated_at: string | null
+          user_id: string
+          variables: Json
+        }
+        Insert: {
+          confidence_bands?: Json
+          created_at?: string | null
+          id?: string
+          name: string
+          outputs?: Json
+          updated_at?: string | null
+          user_id: string
+          variables?: Json
+        }
+        Update: {
+          confidence_bands?: Json
+          created_at?: string | null
+          id?: string
+          name?: string
+          outputs?: Json
+          updated_at?: string | null
+          user_id?: string
+          variables?: Json
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
