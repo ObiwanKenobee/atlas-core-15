@@ -46,13 +46,13 @@ export function useSimulations() {
 
   const saveScenario = async (name: string, variables: SimulationVariable[], outputs: Record<string, number>) => {
     if (!user) return;
-    const { error } = await supabase.from("simulation_scenarios").insert({
+    const { error } = await supabase.from("simulation_scenarios").insert([{
       name,
       user_id: user.id,
       variables: variables as unknown as Record<string, unknown>[],
       outputs: outputs as unknown as Record<string, unknown>,
       confidence_bands: { low: 0.6, mid: 0.8, high: 0.95 },
-    });
+    }]);
     if (error) throw error;
   };
 
